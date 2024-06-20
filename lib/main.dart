@@ -1,26 +1,71 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Text('PiggyTech Front'),
-        ),
-        backgroundColor: Colors.blueAccent[100],
-      ),
-      body: Center(
-        child: Image.network('https://en.gundam.info/about-gundam/series-pages/seedfreedom/gseedfreedom/en/product/2023/10/hg_rising_freedom_gundam_01m_en_1.jpg')
+void main() => runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
+  home: Scaffold(
+    backgroundColor: Colors.white60,
+    appBar: AppBar(
+      title: Text('User Profile'),
+      backgroundColor: Colors.blue,
+      centerTitle: true,
+    ),
+    body: Padding(
+      padding: EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Name',
+            style: TextStyle(
+              fontSize: 16.0,
+              color: Colors.white70,
+              letterSpacing: 2.0,
+            ),
           ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(
-          Icons.add,
-          color: Colors.red,
-        ),
-        backgroundColor: Colors.blueAccent[100],
+          Text(
+            'Roniel D. Madrigal',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 20.0,
+            ),
+          ),
+          SizedBox(height: 30.0,),
+          Text(
+            'Year',
+            style: TextStyle(
+              fontSize: 16.0,
+              color: Colors.white70,
+              letterSpacing: 2.0,
+            ),
+          ),
+          Text(
+            'BSIT - Business Analytics - 3301',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 20.0,
+            ),
+          ),
+          SizedBox(height: 30.0,),
+          Text(
+            'Email',
+            style: TextStyle(
+              fontSize: 16.0,
+              color: Colors.white70,
+              letterSpacing: 2.0,
+            ),
+          ),
+          Text(
+            '21-16871@g.batstate-u.edu.ph',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 20.0,
+            ),
+          ),
+        ],
       ),
     ),
-  ));
-}
+  ),
+));
