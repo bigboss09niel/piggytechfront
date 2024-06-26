@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int year = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +87,7 @@ class Home extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  'BSIT - Business Analytics - 3301',
+                  '$year Year',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -119,8 +126,19 @@ class Home extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ElevatedButton(
-                    onPressed: (){},
-                    child: Text('Add Year'),
+                    onPressed: (){
+                      setState(() {
+                        year += 1;
+                      });
+                    },
+                    child: Text(
+                        'Add Year',
+                      style:  TextStyle(
+                        fontSize: 16.0,
+                        letterSpacing: 2.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                 ),
               ],
             ),
