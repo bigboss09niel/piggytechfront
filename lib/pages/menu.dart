@@ -17,26 +17,6 @@ class _MenuState extends State<Menu> {
     Product(productName: "IT4", price: 40.0),
   ];
 
-  Widget cardTemplate(product){
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(
-              product.productName,
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
-            ),
-            Text('${product.price}'),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
