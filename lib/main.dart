@@ -5,6 +5,7 @@ import 'package:piggytechfront/pages/menu.dart';
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
+  initialRoute: '/menu',
   routes: {
     '/' : (context) => Dashboard(),
     '/menu' : (context) => Menu(),

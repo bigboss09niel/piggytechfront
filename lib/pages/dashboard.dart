@@ -12,23 +12,37 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white60,
+      appBar: AppBar(
+        title: Text(
+          'Dashboard',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+      ),
       body: Container(
         child: SafeArea(
-          child: Column(
-            children: [
-              ElevatedButton(
-                onPressed: (){
-                  Navigator.pushNamed(context, '/menu');
-                },
-                child: Text('Go to menu'),
-              ),
-              ElevatedButton(
-                onPressed: (){
-                  Navigator.pushNamed(context, '/profile');
-                },
-                child: Text('Go to profile'),
-              ),
-            ],
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/menu');
+                  },
+                  child: Text('Go to menu'),
+                ),
+                SizedBox(height: 16.0,),
+                ElevatedButton(
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/profile');
+                  },
+                  child: Text('Go to profile'),
+                ),
+              ],
+            ),
           )
         ),
       ),
