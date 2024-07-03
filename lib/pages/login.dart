@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Welcome to PiggyTech!',
+                'Welcome to Oink-oink!',
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   letterSpacing: 2.0,
@@ -94,7 +94,69 @@ class _LoginState extends State<Login> {
                         foregroundColor: Colors.black,
                       ),
                     ),
-                    SizedBox(height: 30.0,),
+                    SizedBox(height: 20.0,),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Divider(
+                            color: Colors.grey[600],
+                            height: 50,
+                          ),
+                        ),
+                        SizedBox(width: 5.0,),
+                        Text(
+                          'Or Login with',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        SizedBox(width: 5.0,),
+                        Expanded(
+                          child: Divider(
+                            color: Colors.grey[600],
+                            height: 50,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.0,),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        ElevatedButton(
+                          onPressed: (){},
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(Icons.g_mobiledata),
+                              SizedBox(width: 90.0,),
+                              Text('Login with Google')
+                            ],
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red[400],
+                            foregroundColor: Colors.grey[200],
+                          ),
+                        ),
+                        SizedBox(height: 10.0,),
+                        ElevatedButton(
+                          onPressed: (){},
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Icon(Icons.facebook),
+                              SizedBox(width: 90.0,),
+                              Text('Login with Facebook')
+                            ],
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue[400],
+                            foregroundColor: Colors.grey[200],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20.0,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[

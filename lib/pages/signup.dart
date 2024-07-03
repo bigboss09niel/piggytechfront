@@ -129,7 +129,7 @@ class _SignupState extends State<Signup> {
                         ),
                         SizedBox(width: 5.0,),
                         Text(
-                          'Or Login with',
+                          'Or Signup with',
                           style: TextStyle(
                             color: Colors.grey[600],
                           ),
