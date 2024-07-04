@@ -16,6 +16,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, //about bottom overflowed by pixel error
       backgroundColor: Colors.white70,
       body: SafeArea(
         child: Padding(

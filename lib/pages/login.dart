@@ -15,6 +15,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false, //about bottom overflowed by pixel error
       backgroundColor: Colors.white70,
       body: SafeArea(
         child: Padding(
@@ -86,6 +87,7 @@ class _LoginState extends State<Login> {
                           formKey.currentState!.save();
                           print(email);
                           print(password);
+                          Navigator.pushReplacementNamed(context, '/');
                         }
                       },
                       child: Text('Login'),
