@@ -6,10 +6,22 @@ class SelectedProduct extends StatefulWidget {
   const SelectedProduct({super.key, required this.product});
 
   @override
-  State<SelectedProduct> createState() => _SelectedProductState();
+  State<SelectedProduct> createState() => _SelectedProductState(product: product);
 }
 
 class _SelectedProductState extends State<SelectedProduct> {
+  final Product product;
+  late double totalAmount;
+  int numberOfOrders = 1;
+
+  _SelectedProductState({required this.product});
+
+  @override
+  void initState() {
+    super.initState();
+    totalAmount = product.price;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +36,66 @@ class _SelectedProductState extends State<SelectedProduct> {
         children: [
           Column(
             children: [
-              Text(widget.product.productName),
-              Text(widget.product.description),
+              Text(
+                widget.product.productName,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                widget.product.description,
+                style: TextStyle(
+                  fontSize: 15.0,
+                ),
+              ),
             ],
           ),
-          Row(
-            children: [
-              Text(widget.product.price.toString()),
-            ],
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '₱ ${totalAmount.toString()}',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: (){
+                        setState(() {
+                          if(numberOfOrders > 1){
+                            numberOfOrders -= 1;
+                            totalAmount = product.price * numberOfOrders;
+                          }
+                        });
+                      },
+                      icon: Icon(Icons.remove),
+                    ),
+                    Text(
+                      numberOfOrders.toString(),
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: (){
+                        setState(() {
+                          numberOfOrders += 1;
+                          totalAmount = product.price * numberOfOrders;
+                        });
+                      },
+                      icon: Icon(Icons.add)
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ],
       ),
