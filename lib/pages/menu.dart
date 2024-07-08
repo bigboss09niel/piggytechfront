@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:piggytechfront/pages/selectedProduct.dart';
 import 'package:piggytechfront/services/product.dart';
 import 'package:piggytechfront/services/menuCard.dart';
 import 'package:http/http.dart' as http;
@@ -86,17 +87,30 @@ class _MenuState extends State<Menu> {
                         title: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(products[index].productName),
+                            Text(
+                              products[index].productName,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             Text(
                               products[index].price.toString(),
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15.0,
                               ),
-                            )
+                            ),
                           ],
                         ),
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(
+                            context, MaterialPageRoute(
+                              builder: (context) => SelectedProduct(product: products[index]),
+                            ),
+                          );
+                        },
                       ),
                     );
                   }
