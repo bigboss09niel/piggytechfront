@@ -21,6 +21,7 @@ class _MenuState extends State<Menu> {
     final response = await http.get(
         Uri.parse('http://10.0.2.2:8080/products')     //Android
         //Uri.parse('http://127.0.0.1:8080/products')     //Web
+        //Uri.parse('http://---.---.---.---:8080/products')     //IP Address of laptop
     );
     final data = jsonDecode(response.body);
     List products = <Product>[];
