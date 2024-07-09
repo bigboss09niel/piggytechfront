@@ -16,6 +16,10 @@ class _SignupState extends State<Signup> {
   String name = '';
   String email = '';
   String password = '';
+  bool _obscure = true; //about password that to see what they input
+  // bool _obscureConfirm = true;
+  IconData _obscureIcon = Icons.visibility_off;
+  // IconData _obscureIconConfirm = Icons.visibility_off;
 
   createAccount(User user) async{
     final response = await http.post(
@@ -62,10 +66,10 @@ class _SignupState extends State<Signup> {
                       maxLength: 40,
                       decoration: InputDecoration(
                         label: Text('Name'),
+                        prefixIcon: Icon(Icons.person),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0)
                         ),
-                        prefixIcon: Icon(Icons.person),
                       ),
                       validator: (value){
                         if(value == null || value.isEmpty){
@@ -84,11 +88,11 @@ class _SignupState extends State<Signup> {
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                          label: Text('Email'),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0)
-                          ),
+                        label: Text('Email'),
                         prefixIcon: Icon(Icons.email),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)
+                        ),
                       ),
                       validator: (value){
                         if(value == null || value.isEmpty){
@@ -102,13 +106,27 @@ class _SignupState extends State<Signup> {
                     ),
                     SizedBox(height: 20.0,),
                     TextFormField(
-                      obscureText: true,
+                      enableInteractiveSelection: false, //About copying that's why false
+                      obscureText: _obscure,
                       decoration: InputDecoration(
-                          label: Text('Password'),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0)
-                          ),
+                        label: Text('Password'),
                         prefixIcon: Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          icon: Icon(_obscureIcon),
+                          onPressed: (){
+                            setState(() {
+                              _obscure = !_obscure;
+                              if(_obscure){
+                                _obscureIcon = Icons.visibility_off;
+                              } else {
+                                _obscureIcon = Icons.visibility;
+                              }
+                            });
+                          },
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)
+                        ),
                       ),
                       validator: (value){
                         if(value == null || value.isEmpty){
@@ -126,6 +144,40 @@ class _SignupState extends State<Signup> {
                         password = value!;
                       },
                     ),
+                    // SizedBox(height: 20.0,),
+                    // TextFormField(
+                    //   enableInteractiveSelection: false, //About copying that's why false
+                    //   obscureText: _obscureConfirm,
+                    //   decoration: InputDecoration(
+                    //     label: Text('Confirm Password'),
+                    //     prefixIcon: Icon(Icons.lock),
+                    //     suffixIcon: IconButton(
+                    //       icon: Icon(_obscureIconConfirm),
+                    //       onPressed: (){
+                    //         setState(() {
+                    //           _obscureConfirm = !_obscureConfirm;
+                    //           if(_obscureConfirm){
+                    //             _obscureIconConfirm = Icons.visibility_off;
+                    //           } else {
+                    //             _obscureIconConfirm = Icons.visibility;
+                    //           }
+                    //         });
+                    //       },
+                    //     ),
+                    //     border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(10.0)
+                    //     ),
+                    //   ),
+                    //   validator: (value){
+                    //     if(value == null || value.isEmpty) {
+                    //       return 'Please confirm your password';
+                    //     }
+                    //     if(value != password) {
+                    //       return 'Passwords do not match';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
                     SizedBox(height: 30.0,),
                     ElevatedButton(
                       onPressed: (){

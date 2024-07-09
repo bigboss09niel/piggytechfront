@@ -41,6 +41,7 @@ class _LoginState extends State<Login> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                           label: Text('Email'),
+                          prefixIcon: Icon(Icons.email),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)
                           )
@@ -60,6 +61,7 @@ class _LoginState extends State<Login> {
                       obscureText: true,
                       decoration: InputDecoration(
                           label: Text('Password'),
+                          prefixIcon: Icon(Icons.lock),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)
                           )
