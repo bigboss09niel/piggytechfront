@@ -36,8 +36,13 @@ class _SelectedProductState extends State<SelectedProduct> {
         children: [
           Column(
             children: [
-              // Image.asset(product.url), //Local
-              Image.network(product.url), //Network
+
+              Container(
+                width: 400,
+                height: 400,
+                child: Image.network(product.url), //Network
+                // Image.asset(product.url), //Local
+              ),
               Text(
                 widget.product.productName,
                 style: TextStyle(
