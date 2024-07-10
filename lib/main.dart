@@ -7,7 +7,7 @@ import 'package:piggytechfront/pages/login.dart';
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
-  initialRoute: '/login',
+  initialRoute: '/menu',
   routes: {
     '/dashboard' : (context) => Dashboard(),
     '/menu' : (context) => Menu(),

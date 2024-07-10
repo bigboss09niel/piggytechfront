@@ -19,7 +19,7 @@ class _MenuState extends State<Menu> {
   late Future<List<dynamic>> products;
   Future<List<dynamic>> fetchData() async{
     final response = await http.get(
-        Uri.parse('http://10.0.2.2:8080/products')     //Android
+        Uri.parse('http://10.0.2.2:8080/api/v1/product/all')     //Android
         //Uri.parse('http://127.0.0.1:8080/products')     //Web
         //Uri.parse('http://---.---.---.---:8080/products')     //IP Address of laptop
     );
