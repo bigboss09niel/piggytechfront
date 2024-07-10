@@ -9,7 +9,7 @@ void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
   initialRoute: '/login',
   routes: {
-    '/' : (context) => Dashboard(),
+    '/dashboard' : (context) => Dashboard(),
     '/menu' : (context) => Menu(),
     '/profile' : (context) => Home(),
     '/signup' : (context) => Signup(),
