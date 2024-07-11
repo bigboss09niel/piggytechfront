@@ -34,29 +34,33 @@ class _SelectedProductState extends State<SelectedProduct> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            children: [
-
-              Container(
-                width: 400,
-                height: 400,
-                child: Image.network(product.url), //Network
-                // Image.asset(product.url), //Local
-              ),
-              Text(
-                widget.product.productName,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Column(
+              children: [
+                Container(
+                  width: 400,
+                  height: 400,
+                  child: Image.network(product.url), //Network
+                  // Image.asset(product.url), //Local
                 ),
-              ),
-              Text(
-                widget.product.description,
-                style: TextStyle(
-                  fontSize: 15.0,
+                SizedBox(height: 10.0,),
+                Text(
+                  widget.product.productName,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: 10.0,),
+                Text(
+                  widget.product.description,
+                  style: TextStyle(
+                    fontSize: 15.0,
+                  ),
+                ),
+              ],
+            ),
           ),
           Container(
             decoration: BoxDecoration(

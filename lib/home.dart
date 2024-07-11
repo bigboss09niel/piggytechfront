@@ -24,6 +24,37 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        elevation: 3.0,
+        onTap: (int val){
+          switch(val){
+            case 0:
+              Navigator.pushNamed(context, '/dashboard');
+              break;
+            case 1:
+              Navigator.pushNamed(context, '/menu');
+              break;
+            case 2:
+              Navigator.pushNamed(context, '/');
+              break;
+          }
+        },
+        currentIndex: 2,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.smart_toy),
+            label: 'Menu',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+      ),
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: Column(
