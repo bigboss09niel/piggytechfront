@@ -160,26 +160,29 @@ class _HomeState extends State<Home> {
 
               // Moved the ElevatedButton to the bottom
               Expanded(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 5.0), // Adjusted padding to only affect the bottom
-                    child: ElevatedButton(
-                      onPressed: (){
-                        setState(() {
-                          year += 1;
-                        });
-                      },
-                      child: Text(
-                        'Add Year',
-                        style:  TextStyle(
-                          fontSize: 16.0,
-                          letterSpacing: 2.0,
-                          fontWeight: FontWeight.bold,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 5.0), // Adjusted padding to only affect the bottom
+                      child: ElevatedButton(
+                        onPressed: (){
+                          setState(() {
+                            year += 1;
+                          });
+                        },
+                        child: Text(
+                          'Add Year',
+                          style:  TextStyle(
+                            fontSize: 16.0,
+                            letterSpacing: 2.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],
