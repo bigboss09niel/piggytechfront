@@ -26,13 +26,13 @@ class _DashboardState extends State<Dashboard> {
         onTap: (int val){
           switch(val){
             case 0:
-              Navigator.pushNamed(context, '/');
+              Navigator.pushReplacementNamed(context, '/');
               break;
             case 1:
-              Navigator.pushNamed(context, '/menu');
+              Navigator.pushReplacementNamed(context, '/menu');
               break;
             case 2:
-              Navigator.pushNamed(context, '/profile');
+              Navigator.pushReplacementNamed(context, '/profile');
               break;
           }
         },
@@ -65,7 +65,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
                   child: Text(
@@ -73,7 +73,7 @@ class _DashboardState extends State<Dashboard> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                   ),
                 ),

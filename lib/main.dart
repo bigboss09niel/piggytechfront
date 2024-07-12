@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:piggytechfront/home.dart';
+import 'package:piggytechfront/pages/home.dart';
 import 'package:piggytechfront/pages/dashboard.dart';
 import 'package:piggytechfront/pages/menu.dart';
 import 'package:piggytechfront/pages/signup.dart';
