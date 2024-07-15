@@ -10,14 +10,41 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int year = 0;
 
+  void _showLogoutDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Log Out'),
+          content: Text('Are you sure you want to log out?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white60,
       bottomNavigationBar: BottomNavigationBar(
         elevation: 3.0,
-        onTap: (int val){
-          switch(val){
+        onTap: (int val) {
+          switch (val) {
             case 0:
               Navigator.pushReplacementNamed(context, '/dashboard');
               break;
@@ -50,7 +77,7 @@ class _HomeState extends State<Home> {
           padding: EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch, // Added this line
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
@@ -63,7 +90,6 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -157,8 +183,6 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-
-              // Moved the ElevatedButton to the bottom
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -167,14 +191,28 @@ class _HomeState extends State<Home> {
                     Padding(
                       padding: EdgeInsets.only(bottom: 5.0), // Adjusted padding to only affect the bottom
                       child: ElevatedButton(
-                        onPressed: (){
+                        onPressed: () {
                           setState(() {
                             year += 1;
                           });
                         },
                         child: Text(
                           'Add Year',
-                          style:  TextStyle(
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            letterSpacing: 2.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 5.0),
+                      child: ElevatedButton(
+                        onPressed: _showLogoutDialog,
+                        child: Text(
+                          'Log Out',
+                          style: TextStyle(
                             fontSize: 16.0,
                             letterSpacing: 2.0,
                             fontWeight: FontWeight.bold,
@@ -191,5 +229,4 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-
 }

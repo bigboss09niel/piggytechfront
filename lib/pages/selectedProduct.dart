@@ -30,6 +30,12 @@ class _SelectedProductState extends State<SelectedProduct> {
         title: Text('Order'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/menu');
+          },
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,13 +101,13 @@ class _SelectedProductState extends State<SelectedProduct> {
                       ),
                     ),
                     IconButton(
-                      onPressed: (){
-                        setState(() {
-                          numberOfOrders += 1;
-                          totalAmount = product.price * numberOfOrders;
-                        });
-                      },
-                      icon: Icon(Icons.add)
+                        onPressed: (){
+                          setState(() {
+                            numberOfOrders += 1;
+                            totalAmount = product.price * numberOfOrders;
+                          });
+                        },
+                        icon: Icon(Icons.add)
                     ),
                   ],
                 )

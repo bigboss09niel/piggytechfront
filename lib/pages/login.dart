@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:piggytechfront/services/user.dart';
-
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -18,33 +16,67 @@ class _LoginState extends State<Login> {
   String password = '';
   bool _obscure = true;
   IconData _obscureIcon = Icons.visibility_off;
+  bool isLoading = false;
 
-  Widget buttonContent = Text('Log in');
-
-  Widget loadingDisplay = CircularProgressIndicator();
-
-  Future<bool> login(User user) async{
+  Future<bool> login(User user) async {
     final response = await http.post(
       Uri.parse('http://10.0.2.2:8080/api/v1/auth/login'),
       headers: <String, String>{
-        'Content-Type' : 'application/json; charset=UTF-8'
+        'Content-Type': 'application/json; charset=UTF-8'
       },
       body: jsonEncode(<String, dynamic>{
-        'usernameOrEmail' : user.email,
-        'password' : user.password
+        'usernameOrEmail': user.email,
+        'password': user.password
       }),
     );
-    if(response.statusCode == 200){
-      return true;
-    }
-    return false;
-    //print(response.body);
+    return response.statusCode == 200;
+  }
+
+  void showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Login Failed'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Login Successful'),
+          content: Text('You have successfully logged in.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.pushReplacementNamed(context, '/dashboard');
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, //about bottom overflowed by pixel error
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white60,
       body: SafeArea(
         child: Padding(
@@ -75,13 +107,13 @@ class _LoginState extends State<Login> {
                               borderRadius: BorderRadius.circular(10.0)
                           )
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Please provide an email';
                         }
                         return null;
                       },
-                      onSaved: (value){
+                      onSaved: (value) {
                         email = value!;
                       },
                     ),
@@ -93,14 +125,10 @@ class _LoginState extends State<Login> {
                           prefixIcon: Icon(Icons.lock),
                           suffixIcon: IconButton(
                             icon: Icon(_obscureIcon),
-                            onPressed: (){
+                            onPressed: () {
                               setState(() {
                                 _obscure = !_obscure;
-                                if(_obscure){
-                                  _obscureIcon = Icons.visibility_off;
-                                } else {
-                                  _obscureIcon = Icons.visibility;
-                                }
+                                _obscureIcon = _obscure ? Icons.visibility_off : Icons.visibility;
                               });
                             },
                           ),
@@ -108,53 +136,49 @@ class _LoginState extends State<Login> {
                               borderRadius: BorderRadius.circular(10.0)
                           )
                       ),
-                      validator: (value){
-                        if(value == null || value.isEmpty){
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Please provide a password';
                         }
-                        if(value.length < 8){
-                          return 'Password should be atleast 8 characters long';
+                        if (value.length < 8) {
+                          return 'Password should be at least 8 characters long';
                         }
-                        if(value.length > 20){
+                        if (value.length > 20) {
                           return 'Password must be 20 characters long only';
                         }
                         return null;
                       },
-                      onSaved: (value){
+                      onSaved: (value) {
                         password = value!;
                       },
                     ),
                     SizedBox(height: 30.0,),
                     ElevatedButton(
-                      onPressed: (){
-                        if(formKey.currentState!.validate()){
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
                           formKey.currentState!.save();
+                          setState(() {
+                            isLoading = true;
+                          });
                           User user = User(
                             username: '',
                             email: email,
-                            password: password
+                            password: password,
                           );
-                          // if(login(user)){
-                          //   Navigator.pushReplacementNamed(context, '/dashboard');
-                          // }
+                          bool success = await login(user);
                           setState(() {
-                            buttonContent = FutureBuilder(
-                              future: login(user),
-                              builder: (context, snapshots){
-                                if(snapshots.connectionState == ConnectionState.waiting){
-                                  return loadingDisplay;
-                                }
-                                if(snapshots.hasData){
-
-                                }
-                                return Text('Log in');
-                              }
-                            );
+                            isLoading = false;
                           });
-                          Navigator.pushReplacementNamed(context, '/dashboard');
+                          if (success) {
+                            showSuccessDialog();
+                          } else {
+                            showErrorDialog('Incorrect email or password. Please try again.');
+                          }
                         }
                       },
-                      child: buttonContent,
+                      child: isLoading
+                          ? CircularProgressIndicator()
+                          : Text('Log in'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white70,
                         foregroundColor: Colors.black,
@@ -190,7 +214,7 @@ class _LoginState extends State<Login> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         ElevatedButton(
-                          onPressed: (){},
+                          onPressed: () {},
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
@@ -206,7 +230,7 @@ class _LoginState extends State<Login> {
                         ),
                         SizedBox(height: 10.0,),
                         ElevatedButton(
-                          onPressed: (){},
+                          onPressed: () {},
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
@@ -227,7 +251,7 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Dont have an account?',
+                          'Don\'t have an account?',
                           style: TextStyle(
                             color: Colors.grey[600],
                           ),
@@ -240,7 +264,7 @@ class _LoginState extends State<Login> {
                               color: Colors.black,
                             ),
                           ),
-                          onTap: ()=> Navigator.pushReplacementNamed(context, '/signup'),
+                          onTap: () => Navigator.pushReplacementNamed(context, '/signup'),
                         ),
                       ],
                     )

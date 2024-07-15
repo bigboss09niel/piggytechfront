@@ -133,7 +133,7 @@ class _MenuState extends State<Menu> {
                                       ),
                                     ),
                                     Text(
-                                      '₱ ${products[index].price.toString()}0',
+                                      '₱ ${products[index].price.toStringAsFixed(2)}',
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 15.0,
