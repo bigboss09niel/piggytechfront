@@ -17,25 +17,63 @@ class _SignupState extends State<Signup> {
   String email = '';
   String password = '';
   bool _obscure = true; //about password that to see what they input
-  // bool _obscureConfirm = true;
   IconData _obscureIcon = Icons.visibility_off;
-  // IconData _obscureIconConfirm = Icons.visibility_off;
 
-  createAccount(User user) async{
+  Future<bool> createAccount(User user) async {
     final response = await http.post(
       Uri.parse('http://10.0.2.2:8080/api/v1/auth/register/user'),
-      headers : <String, String>{
-        'Content-Type' : 'application/json; charset=UTF-8'
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
       },
       body: jsonEncode(<String, dynamic>{
-        'username' : user.username,
-        'email' : user.email,
-        'password' : user.password
+        'username': user.username,
+        'email': user.email,
+        'password': user.password
       }),
     );
-    //print(response.body);
+    return response.statusCode == 200;
   }
 
+  void showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Signup Successful'),
+          content: Text('You have successfully signed up.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Signup Failed'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +106,7 @@ class _SignupState extends State<Signup> {
                         label: Text('Name'),
                         prefixIcon: Icon(Icons.person),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0)
+                            borderRadius: BorderRadius.circular(10.0)
                         ),
                       ),
                       validator: (value){
@@ -116,11 +154,7 @@ class _SignupState extends State<Signup> {
                           onPressed: (){
                             setState(() {
                               _obscure = !_obscure;
-                              if(_obscure){
-                                _obscureIcon = Icons.visibility_off;
-                              } else {
-                                _obscureIcon = Icons.visibility;
-                              }
+                              _obscureIcon = _obscure ? Icons.visibility_off : Icons.visibility;
                             });
                           },
                         ),
@@ -144,52 +178,22 @@ class _SignupState extends State<Signup> {
                         password = value!;
                       },
                     ),
-                    // SizedBox(height: 20.0,),
-                    // TextFormField(
-                    //   enableInteractiveSelection: false, //About copying that's why false
-                    //   obscureText: _obscureConfirm,
-                    //   decoration: InputDecoration(
-                    //     label: Text('Confirm Password'),
-                    //     prefixIcon: Icon(Icons.lock),
-                    //     suffixIcon: IconButton(
-                    //       icon: Icon(_obscureIconConfirm),
-                    //       onPressed: (){
-                    //         setState(() {
-                    //           _obscureConfirm = !_obscureConfirm;
-                    //           if(_obscureConfirm){
-                    //             _obscureIconConfirm = Icons.visibility_off;
-                    //           } else {
-                    //             _obscureIconConfirm = Icons.visibility;
-                    //           }
-                    //         });
-                    //       },
-                    //     ),
-                    //     border: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(10.0)
-                    //     ),
-                    //   ),
-                    //   validator: (value){
-                    //     if(value == null || value.isEmpty) {
-                    //       return 'Please confirm your password';
-                    //     }
-                    //     if(value != password) {
-                    //       return 'Passwords do not match';
-                    //     }
-                    //     return null;
-                    //   },
-                    // ),
                     SizedBox(height: 30.0,),
                     ElevatedButton(
-                      onPressed: (){
+                      onPressed: () async {
                         if(formKey.currentState!.validate()){
                           formKey.currentState!.save();
                           User user = User(
-                            username : name,
-                            email: email,
-                            password : password
+                              username : name,
+                              email: email,
+                              password : password
                           );
-                          createAccount(user);
-                          Navigator.pushReplacementNamed(context, '/login');
+                          bool success = await createAccount(user);
+                          if(success) {
+                            showSuccessDialog();
+                          } else {
+                            showErrorDialog('Your account is already exists. Please try again.');
+                          }
                         }
                       },
                       child: Text('Sign Up'),
@@ -266,9 +270,9 @@ class _SignupState extends State<Signup> {
                       children: <Widget>[
                         Text(
                           'Already have account?',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                            ),
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                          ),
                         ),
                         SizedBox(width: 5.0,),
                         InkWell(
